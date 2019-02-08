@@ -17,8 +17,8 @@ class GradeProcessor {
   }
 
   private void adjustCourseCountAndPoints(Grade grade) {
-    totalGradePoints += grade.toPoints();
     if (grade.countsForGPA()) {
+      totalGradePoints += grade.toPoints();
       courseCount += 1;
     }
   }
