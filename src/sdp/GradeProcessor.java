@@ -1,16 +1,16 @@
 package sdp;
 
 class GradeProcessor {
-  private GradeLineParser gradeLineParser;
+  private Iterable<Grade> grades;
   private double totalGradePoints = 0;
   private int courseCount = 0;
 
-  public GradeProcessor(GradeLineParser gradeLineParser) {
-    this.gradeLineParser = gradeLineParser;
+  public GradeProcessor(Iterable<Grade> grades) {
+    this.grades = grades;
   }
 
   public String compute() {
-    for (Grade grade : gradeLineParser)
+    for (Grade grade : grades)
       adjustCourseCountAndPoints(grade);
 
     return prepareReport();
