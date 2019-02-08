@@ -37,7 +37,7 @@ public enum Grade {
     case "F": return F;
     case "W": return W;
     default:
-      throw new RuntimeException();
+      throw new UnknownLetterGradeException();
     }
   }
 
@@ -51,5 +51,8 @@ public enum Grade {
 
   public double toPoints() {
     return points;
+  }
+
+  private static class UnknownLetterGradeException extends RuntimeException {
   }
 }
