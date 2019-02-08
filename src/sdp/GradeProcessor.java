@@ -8,8 +8,14 @@ class GradeProcessor {
   private int courseCount = 0;
   private Grade grade;
 
-  public GradeProcessor(Scanner scanner) {
-    this.scanner = scanner;
+  public GradeProcessor() {
+
+  }
+
+  static GradeProcessor newProcessorWithScanner(Scanner scanner) {
+    GradeProcessor gradeProcessor = new GradeProcessor();
+    gradeProcessor.setScanner(scanner);
+    return gradeProcessor;
   }
 
   public String compute() {
@@ -23,22 +29,22 @@ class GradeProcessor {
   }
 
   private boolean thereAreMoreCourses() {
-    return scanner.hasNextLine();
+    return getScanner().hasNextLine();
   }
 
   private void readCourseCode() {
-    scanner.next("\\s*\\w+\\s*");
-    scanner.next("\\s*\\w+\\s*");
+    getScanner().next("\\s*\\w+\\s*");
+    getScanner().next("\\s*\\w+\\s*");
   }
 
   private void readLetterGrade() {
-    String letterGrade = scanner.next("[ABCDFW][+-]?");
+    String letterGrade = getScanner().next("[ABCDFW][+-]?");
     grade = Grade.fromLetter(letterGrade);
   }
 
   private void goToNextLine() {
-    if (scanner.hasNextLine()) {
-      scanner.nextLine();
+    if (getScanner().hasNextLine()) {
+      getScanner().nextLine();
     }
   }
 
@@ -55,4 +61,11 @@ class GradeProcessor {
     return String.format("Courses: %d\nGPA: %.2f\n", courseCount, gradePointAverage);
   }
 
+  public Scanner getScanner() {
+    return scanner;
+  }
+
+  public void setScanner(Scanner scanner) {
+    this.scanner = scanner;
+  }
 }
