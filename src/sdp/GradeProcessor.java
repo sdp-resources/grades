@@ -4,6 +4,7 @@ class GradeProcessor {
   private Iterable<Grade> grades;
   private double totalGradePoints = 0;
   private int courseCount = 0;
+  private double gradePointAverage;
 
   public GradeProcessor(Iterable<Grade> grades) {
     this.grades = grades;
@@ -13,6 +14,7 @@ class GradeProcessor {
     for (Grade grade : grades)
       adjustCourseCountAndPoints(grade);
 
+    computeGradePointAverage();
     return prepareReport();
   }
 
@@ -24,9 +26,11 @@ class GradeProcessor {
   }
 
   private String prepareReport() {
-    double gradePointAverage = courseCount == 0 ? 0 : totalGradePoints / courseCount;
-
     return String.format("Courses: %d\nGPA: %.2f\n", courseCount, gradePointAverage);
+  }
+
+  private void computeGradePointAverage() {
+    gradePointAverage = courseCount == 0 ? 0 : totalGradePoints / courseCount;
   }
 
 }
