@@ -10,12 +10,9 @@ class GradeProcessor {
   }
 
   public String compute() {
-    while (gradeLineParser.thereAreMoreCourses()) {
-      gradeLineParser.readCourseCode();
-      Grade processedGrade = gradeLineParser.readLetterGrade();
-      adjustCourseCountAndPoints(processedGrade);
-      gradeLineParser.goToNextLine();
-    }
+    for (Grade grade : gradeLineParser)
+      adjustCourseCountAndPoints(grade);
+
     return prepareReport();
   }
 
