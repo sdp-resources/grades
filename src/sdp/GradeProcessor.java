@@ -1,33 +1,22 @@
 package sdp;
 
 class GradeProcessor {
-  private double totalGradePoints = 0;
-  private int courseCount = 0;
-  private double gradePointAverage;
+  final GradeAdder gradeAdder = new GradeAdder();
 
   public void addGrades(Iterable<Grade> grades) {
     for (Grade grade : grades)
       adjustCourseCountAndPointsIfNeeded(grade);
 
-    computeGradePointAverage();
+    gradeAdder.computeGradePointAverage();
   }
 
   private void adjustCourseCountAndPointsIfNeeded(Grade grade) {
     if (grade.countsForGPA())
-      addToTotalCounts(grade);
+      gradeAdder.add(grade);
   }
 
-  private void addToTotalCounts(Grade grade) {
-    totalGradePoints += grade.toPoints();
-    courseCount += 1;
-  }
-
-  private void computeGradePointAverage() {
-    gradePointAverage = courseCount == 0 ? 0 : totalGradePoints / courseCount;
-  }
-
-  public String prepareReport() {
-    return String.format("Courses: %d\nGPA: %.2f\n", courseCount, gradePointAverage);
+  String prepareReport() {
+    return gradeAdder.prepareReport();
   }
 
 }
