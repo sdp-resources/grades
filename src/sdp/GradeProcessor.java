@@ -19,45 +19,48 @@ class GradeProcessor {
       if (scanner.hasNextLine()) {
         scanner.nextLine();
       }
+      double gradePointsForLetter;
       switch (letterGrade) {
       case "A":
-        totalGradePoints += 4.00;
+        gradePointsForLetter = 4.00;
         break;
       case "A-":
-        totalGradePoints += 3.67;
+        gradePointsForLetter = 3.67;
         break;
       case "B+":
-        totalGradePoints += 3.33;
+        gradePointsForLetter = 3.33;
         break;
       case "B":
-        totalGradePoints += 3.00;
+        gradePointsForLetter = 3.00;
         break;
       case "B-":
-        totalGradePoints += 2.67;
+        gradePointsForLetter = 2.67;
         break;
       case "C+":
-        totalGradePoints += 2.33;
+        gradePointsForLetter = 2.33;
         break;
       case "C":
-        totalGradePoints += 2.00;
+        gradePointsForLetter = 2.00;
         break;
       case "C-":
-        totalGradePoints += 1.67;
+        gradePointsForLetter = 1.67;
         break;
       case "D+":
-        totalGradePoints += 1.33;
+        gradePointsForLetter = 1.33;
         break;
       case "D":
-        totalGradePoints += 1.00;
+        gradePointsForLetter = 1.00;
         break;
       case "F":
-        totalGradePoints += 0.00;
+        gradePointsForLetter = 0.00;
         break;
       case "W":
+        gradePointsForLetter = 0.00;
         break;
       default:
         throw new RuntimeException();
       }
+      this.totalGradePoints += gradePointsForLetter;
       if (!letterGrade.equals("W")) {
         courseCount += 1;
       }
