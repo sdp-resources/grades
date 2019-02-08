@@ -41,6 +41,10 @@ public enum Grade {
     }
   }
 
+  boolean countsForGPA() {
+    return this != W;
+  }
+
   public String toString() {
     return letter;
   }

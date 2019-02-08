@@ -44,7 +44,7 @@ class GradeProcessor {
 
   private void adjustCourseCountAndPoints() {
     totalGradePoints += grade.toPoints();
-    if (grade != Grade.W) {
+    if (grade.countsForGPA()) {
       courseCount += 1;
     }
   }
