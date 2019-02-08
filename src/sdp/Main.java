@@ -13,7 +13,7 @@ public class Main {
   }
 
   private static String processGrades(Scanner scanner) {
-    return GradeProcessor.newProcessorWithScanner(scanner).compute();
+    return new GradeProcessor(new GradeLineParser(scanner)).compute();
   }
 
   @Test

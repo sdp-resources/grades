@@ -1,7 +1,5 @@
 package sdp;
 
-import java.util.Scanner;
-
 class GradeProcessor {
   private GradeLineParser gradeLineParser;
   private double totalGradePoints = 0;
@@ -9,10 +7,6 @@ class GradeProcessor {
 
   public GradeProcessor(GradeLineParser gradeLineParser) {
     this.gradeLineParser = gradeLineParser;
-  }
-
-  static GradeProcessor newProcessorWithScanner(Scanner scanner) {
-    return new GradeProcessor(new GradeLineParser(scanner));
   }
 
   public String compute() {
