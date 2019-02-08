@@ -1,10 +1,9 @@
 package sdp;
 
-import org.junit.Test;
-
 import java.util.Scanner;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class Main {
 
