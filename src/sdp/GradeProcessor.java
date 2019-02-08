@@ -12,18 +12,42 @@ class GradeProcessor {
   }
 
   public String compute() {
-    while (scanner.hasNextLine()) {
-      scanner.next("\\s*\\w+\\s*");
-      scanner.next("\\s*\\w+\\s*");
-      String letterGrade = scanner.next("[ABCDFW][+-]?");
-      if (scanner.hasNextLine()) {
-        scanner.nextLine();
-      }
-      totalGradePoints += getGradePointsForLetter(letterGrade);
-      if (!letterGrade.equals("W")) {
-        courseCount += 1;
-      }
+    while (thereAreMoreCourses()) {
+      readCourseCode();
+      String letterGrade = readLetterGrade();
+      goToNextLine();
+      adjustCourseCountAndPoints(letterGrade);
     }
+    return prepareReport();
+  }
+
+  private boolean thereAreMoreCourses() {
+    return scanner.hasNextLine();
+  }
+
+  private void readCourseCode() {
+    scanner.next("\\s*\\w+\\s*");
+    scanner.next("\\s*\\w+\\s*");
+  }
+
+  private String readLetterGrade() {
+    return scanner.next("[ABCDFW][+-]?");
+  }
+
+  private void goToNextLine() {
+    if (scanner.hasNextLine()) {
+      scanner.nextLine();
+    }
+  }
+
+  private void adjustCourseCountAndPoints(String letterGrade) {
+    totalGradePoints += getGradePointsForLetter(letterGrade);
+    if (!letterGrade.equals("W")) {
+      courseCount += 1;
+    }
+  }
+
+  private String prepareReport() {
     double gradePointAverage = courseCount == 0 ? 0 : totalGradePoints / courseCount;
 
     return String.format("Courses: %d\nGPA: %.2f\n", courseCount, gradePointAverage);
