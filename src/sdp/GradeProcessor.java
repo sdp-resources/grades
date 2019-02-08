@@ -6,7 +6,6 @@ class GradeProcessor {
   private Scanner scanner;
   private double totalGradePoints = 0;
   private int courseCount = 0;
-  private Grade grade;
 
   public GradeProcessor() {
 
@@ -21,8 +20,8 @@ class GradeProcessor {
   public String compute() {
     while (thereAreMoreCourses()) {
       readCourseCode();
-      readLetterGrade();
-      adjustCourseCountAndPoints();
+      Grade processedGrade = readLetterGrade();
+      adjustCourseCountAndPoints(processedGrade);
       goToNextLine();
     }
     return prepareReport();
@@ -37,9 +36,9 @@ class GradeProcessor {
     getScanner().next("\\s*\\w+\\s*");
   }
 
-  private void readLetterGrade() {
+  private Grade readLetterGrade() {
     String letterGrade = getScanner().next("[ABCDFW][+-]?");
-    grade = Grade.fromLetter(letterGrade);
+    return Grade.fromLetter(letterGrade);
   }
 
   private void goToNextLine() {
@@ -48,7 +47,7 @@ class GradeProcessor {
     }
   }
 
-  private void adjustCourseCountAndPoints() {
+  private void adjustCourseCountAndPoints(Grade grade) {
     totalGradePoints += grade.toPoints();
     if (grade.countsForGPA()) {
       courseCount += 1;
