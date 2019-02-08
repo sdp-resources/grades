@@ -13,61 +13,7 @@ public class Main {
   }
 
   private static String processGrades(Scanner scanner) {
-    double t = 0;
-    int c = 0;
-    while (scanner.hasNextLine()) {
-      scanner.next("\\s*\\w+\\s*");
-      scanner.next("\\s*\\w+\\s*");
-      String l = scanner.next("[ABCDFW][+-]?");
-      if (scanner.hasNextLine()) {
-        scanner.nextLine();
-      }
-      switch (l) {
-      case "A":
-        t += 4.00;
-        break;
-      case "A-":
-        t += 3.67;
-        break;
-      case "B+":
-        t += 3.33;
-        break;
-      case "B":
-        t += 3.00;
-        break;
-      case "B-":
-        t += 2.67;
-        break;
-      case "C+":
-        t += 2.33;
-        break;
-      case "C":
-        t += 2.00;
-        break;
-      case "C-":
-        t += 1.67;
-        break;
-      case "D+":
-        t += 1.33;
-        break;
-      case "D":
-        t += 1.00;
-        break;
-      case "F":
-        t += 0.00;
-        break;
-      case "W":
-        break;
-      default:
-        throw new RuntimeException();
-      }
-      if (!l.equals("W")) {
-        c += 1;
-      }
-    }
-    double gpa = c == 0 ? 0 : t / c;
-
-    return String.format("Courses: %d\nGPA: %.2f\n", c, gpa);
+    return new GradeProcessor(scanner).compute();
   }
 
   @Test
@@ -112,4 +58,5 @@ public class Main {
   private void assertTotalsOfList_Are(String input, String output) {
     assertEquals(output, processGrades(new Scanner(input)));
   }
+
 }
