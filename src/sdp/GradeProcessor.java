@@ -3,48 +3,28 @@ package sdp;
 import java.util.Scanner;
 
 class GradeProcessor {
-  private Scanner scanner;
+  private GradeLineParser gradeLineParser;
   private double totalGradePoints = 0;
   private int courseCount = 0;
 
   public GradeProcessor() {
-
+    gradeLineParser = new GradeLineParser();
   }
 
   static GradeProcessor newProcessorWithScanner(Scanner scanner) {
     GradeProcessor gradeProcessor = new GradeProcessor();
-    gradeProcessor.setScanner(scanner);
+    gradeProcessor.gradeLineParser.setScanner(scanner);
     return gradeProcessor;
   }
 
   public String compute() {
-    while (thereAreMoreCourses()) {
-      readCourseCode();
-      Grade processedGrade = readLetterGrade();
+    while (gradeLineParser.thereAreMoreCourses()) {
+      gradeLineParser.readCourseCode();
+      Grade processedGrade = gradeLineParser.readLetterGrade();
       adjustCourseCountAndPoints(processedGrade);
-      goToNextLine();
+      gradeLineParser.goToNextLine();
     }
     return prepareReport();
-  }
-
-  private boolean thereAreMoreCourses() {
-    return getScanner().hasNextLine();
-  }
-
-  private void readCourseCode() {
-    getScanner().next("\\s*\\w+\\s*");
-    getScanner().next("\\s*\\w+\\s*");
-  }
-
-  private Grade readLetterGrade() {
-    String letterGrade = getScanner().next("[ABCDFW][+-]?");
-    return Grade.fromLetter(letterGrade);
-  }
-
-  private void goToNextLine() {
-    if (getScanner().hasNextLine()) {
-      getScanner().nextLine();
-    }
   }
 
   private void adjustCourseCountAndPoints(Grade grade) {
@@ -60,11 +40,4 @@ class GradeProcessor {
     return String.format("Courses: %d\nGPA: %.2f\n", courseCount, gradePointAverage);
   }
 
-  public Scanner getScanner() {
-    return scanner;
-  }
-
-  public void setScanner(Scanner scanner) {
-    this.scanner = scanner;
-  }
 }
