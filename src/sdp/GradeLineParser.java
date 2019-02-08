@@ -11,23 +11,26 @@ public class GradeLineParser implements Iterable<Grade> {
   }
 
   boolean thereAreMoreCourses() {
-    return scanner.hasNextLine();
+    return scanner.hasNext();
   }
 
-  void readCourseCode() {
-    scanner.next("\\s*\\w+\\s*");
-    scanner.next("\\s*\\w+\\s*");
+  String readCourseCode() {
+    String s = readDeptPrefix();
+    s += readCourseNumber();
+    return s;
+  }
+
+  public String readCourseNumber() {
+    return scanner.next();
+  }
+
+  public String readDeptPrefix() {
+    return scanner.next();
   }
 
   Grade readLetterGrade() {
     String letterGrade = scanner.next("[ABCDFW][+-]?");
     return Grade.fromLetter(letterGrade);
-  }
-
-  void goToNextLine() {
-    if (scanner.hasNextLine()) {
-      scanner.nextLine();
-    }
   }
 
   public Iterator<Grade> iterator() {
@@ -39,11 +42,11 @@ public class GradeLineParser implements Iterable<Grade> {
 
       public Grade next() {
         readCourseCode();
-        Grade processedGrade = readLetterGrade();
-        goToNextLine();
+        Grade grade = readLetterGrade();
 
-        return processedGrade;
+        return grade;
       }
     };
   }
+
 }

@@ -39,6 +39,10 @@ public class Main {
   }
 
   @Test
+  public void emptySpaceLinesAtEndAreHandled() {
+    assertTotalsOfList_Are("CS 234        A \n  ", "Courses: 1\nGPA: 4.00\n");
+  }
+    @Test
   public void multipleCoursesAreAllComputed() {
     assertTotalsOfList_Are(
             "CS 234        A \nMAT 111      B",
