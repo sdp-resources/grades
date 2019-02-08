@@ -13,8 +13,9 @@ public class Main {
   }
 
   private static String processGrades(Scanner scanner) {
-    final GradeProcessor gradeProcessor = new GradeProcessor();
-    return gradeProcessor.compute(new GradeLineParser(scanner));
+    GradeProcessor gradeProcessor = new GradeProcessor();
+    gradeProcessor.addGrades(new GradeLineParser(scanner));
+    return gradeProcessor.prepareReport();
   }
 
   @Test
