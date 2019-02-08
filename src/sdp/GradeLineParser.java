@@ -5,34 +5,28 @@ import java.util.Scanner;
 public class GradeLineParser {
   Scanner scanner;
 
-  public GradeLineParser() {
+  public GradeLineParser(Scanner scanner) {
+    this.scanner = scanner;
   }
 
   boolean thereAreMoreCourses() {
-    return getScanner().hasNextLine();
+    return scanner.hasNextLine();
   }
 
   void readCourseCode() {
-    getScanner().next("\\s*\\w+\\s*");
-    getScanner().next("\\s*\\w+\\s*");
+    scanner.next("\\s*\\w+\\s*");
+    scanner.next("\\s*\\w+\\s*");
   }
 
   Grade readLetterGrade() {
-    String letterGrade = getScanner().next("[ABCDFW][+-]?");
+    String letterGrade = scanner.next("[ABCDFW][+-]?");
     return Grade.fromLetter(letterGrade);
   }
 
   void goToNextLine() {
-    if (getScanner().hasNextLine()) {
-      getScanner().nextLine();
+    if (scanner.hasNextLine()) {
+      scanner.nextLine();
     }
   }
 
-  public Scanner getScanner() {
-    return scanner;
-  }
-
-  public void setScanner(Scanner scanner) {
-    this.scanner = scanner;
-  }
 }

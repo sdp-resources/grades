@@ -7,14 +7,12 @@ class GradeProcessor {
   private double totalGradePoints = 0;
   private int courseCount = 0;
 
-  public GradeProcessor() {
-    gradeLineParser = new GradeLineParser();
+  public GradeProcessor(GradeLineParser gradeLineParser) {
+    this.gradeLineParser = gradeLineParser;
   }
 
   static GradeProcessor newProcessorWithScanner(Scanner scanner) {
-    GradeProcessor gradeProcessor = new GradeProcessor();
-    gradeProcessor.gradeLineParser.setScanner(scanner);
-    return gradeProcessor;
+    return new GradeProcessor(new GradeLineParser(scanner));
   }
 
   public String compute() {
