@@ -6,7 +6,7 @@ class GradeProcessor {
   private Scanner scanner;
   private double totalGradePoints = 0;
   private int courseCount = 0;
-  private String letterGrade;
+  private Grade grade;
 
   public GradeProcessor(Scanner scanner) {
     this.scanner = scanner;
@@ -32,7 +32,8 @@ class GradeProcessor {
   }
 
   private void readLetterGrade() {
-    letterGrade = scanner.next("[ABCDFW][+-]?");
+    String letterGrade = scanner.next("[ABCDFW][+-]?");
+    grade = Grade.fromLetter(letterGrade);
   }
 
   private void goToNextLine() {
@@ -42,8 +43,8 @@ class GradeProcessor {
   }
 
   private void adjustCourseCountAndPoints() {
-    totalGradePoints += Grade.fromLetter(letterGrade).toPoints();
-    if (!letterGrade.equals("W")) {
+    totalGradePoints += grade.toPoints();
+    if (grade != Grade.W) {
       courseCount += 1;
     }
   }
