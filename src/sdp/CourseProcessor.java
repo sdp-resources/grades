@@ -27,7 +27,7 @@ class CourseProcessor {
   }
 
   public String reportCourseList() {
-    return new CourseListPrinter(courses).reportCourseList();
+    return new CourseListPrinter().reportCourseList(courses);
   }
 
   public String reportTotals() {
