@@ -5,7 +5,7 @@ import java.util.Scanner;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class GradeProcessorTest {
+public class MainTest {
 
   @Test
   public void emptyGradeListReportsZeroGpaAndNoCourses() {
