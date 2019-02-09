@@ -38,4 +38,7 @@ class CourseProcessor {
     return courses;
   }
 
+  String reportAll() {
+    return reportCourseList() + "---\n" + reportTotals();
+  }
 }

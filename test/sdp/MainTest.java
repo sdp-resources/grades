@@ -3,6 +3,7 @@ package sdp;
 import java.util.Scanner;
 
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class MainTest {
@@ -31,14 +32,15 @@ public class MainTest {
   public void emptySpaceLinesAtEndAreHandled() {
     assertTotalsOfList_Are("CS 234        A \n  ", "Courses: 1\nGPA: 4.00\n");
   }
-    @Test
+
+  @Test
   public void multipleCoursesAreAllComputed() {
     assertTotalsOfList_Are(
-            "CS 234        A \nMAT 111      B",
-            "Courses: 2\nGPA: 3.50\n");
+        "CS 234        A \nMAT 111      B",
+        "Courses: 2\nGPA: 3.50\n");
     assertTotalsOfList_Are(
-            "CS 234        A \nMAT 111      B\nCS 122     B-\n",
-            "Courses: 3\nGPA: 3.22\n");
+        "CS 234        A \nMAT 111      B\nCS 122     B-\n",
+        "Courses: 3\nGPA: 3.22\n");
 
   }
 
@@ -46,14 +48,44 @@ public class MainTest {
   public void withdrawnCoursesDontCountTowardsCoursesTaken() {
     assertTotalsOfList_Are("CS 122L      W", "Courses: 0\nGPA: 0.00\n");
     assertTotalsOfList_Are(
-            "CS 234        A \nMAT 111      B\nCS 122     W\n",
-            "Courses: 2\nGPA: 3.50\n");
+        "CS 234        A \nMAT 111      B\nCS 122     W\n",
+        "Courses: 2\nGPA: 3.50\n");
+  }
+
+  @Test
+  public void fullReportIncludesBothCourseListAndTotals() {
+    assertFullReportForInput_Is(
+        "" +
+            "CS 234        A \n" +
+            "MAT    234    A-\n" +
+            "ENGR 121L      B+\n" +
+            "CS 134         B",
+        "" +
+            "CS   134  B\n" +
+            "CS   234  A\n" +
+            "ENGR 121L B+\n" +
+            "MAT  234  A-\n" +
+            "---\n" +
+            "Courses: 4\n" +
+            "GPA: 3.50\n");
+
+  }
+
+  private void assertFullReportForInput_Is(String input, String output) {
+    CourseProcessor processor = processorWithProcessedInput(input);
+    String report = processor.reportAll();
+    assertEquals(output, report);
   }
 
   private void assertTotalsOfList_Are(String input, String output) {
+    CourseProcessor courseProcessor = processorWithProcessedInput(input);
+    assertEquals(output, courseProcessor.reportTotals());
+  }
+
+  private CourseProcessor processorWithProcessedInput(String input) {
     CourseProcessor courseProcessor = new CourseProcessor();
     courseProcessor.addCourses(new CourseLineParser(new Scanner(input)));
-    assertEquals(output, courseProcessor.reportTotals());
+    return courseProcessor;
   }
 
 }
