@@ -13,6 +13,11 @@ class GradeAdder {
     courseCount += 1;
   }
 
+  void addAll(Iterable<Grade> grades) {
+    for (Grade grade : grades)
+      add(grade);
+  }
+
   public double getTotalGradePoints() {
     return totalGradePoints;
   }
@@ -24,5 +29,4 @@ class GradeAdder {
   String prepareReport() {
     return String.format("Courses: %d\nGPA: %.2f\n", courseCount, computeGradePointAverage());
   }
-
 }
