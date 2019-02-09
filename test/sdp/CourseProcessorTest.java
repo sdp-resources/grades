@@ -29,29 +29,6 @@ public class CourseProcessorTest {
             List.of(Grade.B, Grade.BPLUS));
   }
 
-  @Test
-  public void reportCourseListContainsIncludedCourses() {
-    assertAddedCoursesReportedAlphabetically(List.of(),"");
-    assertAddedCoursesReportedAlphabetically(
-            List.of(new Course("CS", "121C", Grade.BPLUS)),
-            "CS 121C B+\n");
-    assertAddedCoursesReportedAlphabetically(
-            List.of(new Course("MAT", "111L1", Grade.CMINUS),
-                    new Course("CS", "121C", Grade.BPLUS)),
-            "CS 121C B+\nMAT 111L1 C-\n");
-    assertAddedCoursesReportedAlphabetically(
-            List.of(new Course("CS", "131L1", Grade.CMINUS),
-                    new Course("CS", "121C", Grade.BPLUS),
-                    new Course("CS", "021C", Grade.BPLUS)),
-            "CS 021C B+\nCS 121C B+\nCS 131L1 C-\n");
-  }
-
-  private void assertAddedCoursesReportedAlphabetically(List<Course> courses, String output) {
-    CourseProcessor processor = new CourseProcessor();
-    processor.addCourses(courses);
-    assertEquals(output, processor.reportCourseList());
-  }
-
   private void assertAddedCoursesProduceGrades(List<Course> courses, List<Grade> grades) {
     GradeAdderSpy adder = new GradeAdderSpy();
     CourseProcessor processor = new CourseProcessor(adder);
