@@ -5,10 +5,14 @@ class GradeProcessor {
 
   public void addGrades(Iterable<Grade> grades) {
     for (Grade grade : grades)
-      gradeAdder.add(grade);
+      addGrade(grade);
   }
 
-  String reportTotals() {
+  public void addGrade(Grade grade) {
+    gradeAdder.add(grade);
+  }
+
+  public String reportTotals() {
     return gradeAdder.prepareReport();
   }
 
