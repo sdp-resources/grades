@@ -5,11 +5,6 @@ class GradeProcessor {
 
   public void addGrades(Iterable<Grade> grades) {
     for (Grade grade : grades)
-      adjustCourseCountAndPointsIfNeeded(grade);
-  }
-
-  private void adjustCourseCountAndPointsIfNeeded(Grade grade) {
-    if (grade.countsForGPA())
       gradeAdder.add(grade);
   }
 

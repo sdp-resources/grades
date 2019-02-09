@@ -17,10 +17,37 @@ public class GradeAdderTest {
 
   @Test
   public void oneNormalCourseAddedResultsInThatGradeAsGPA_AndOneCourseCount() {
-    for (Grade grade : Grade.values())
-      assertAdder_ResultsIn(
+    for (Grade grade : Grade.values()) {
+      if (grade.countsForGPA())
+        assertAdder_ResultsIn(
               adderFrom(List.of(grade)),
               1, grade.toPoints(), grade.toPoints());
+      else
+        assertAdder_ResultsIn(
+                adderFrom(List.of(grade)),
+                0, 0, 0);
+    }
+  }
+
+  @Test
+  public void twoCoursesAddedResultsInCombinedTotal_AndTwoCourseCount() {
+    assertAdder_ResultsIn(
+            adderFrom(List.of(Grade.A, Grade.B)),
+            2, 7, 3.5);
+  }
+
+  @Test
+  public void moreCoursesAddedResultsInCombinedTotal_AndAppropriateCourseCount() {
+    assertAdder_ResultsIn(
+            adderFrom(List.of(Grade.A, Grade.B, Grade.AMINUS, Grade.C)),
+            4, (4 + 3 + 3.67 + 2), (4 + 3 + 3.67 + 2) / 4);
+  }
+
+  @Test
+  public void withdrawnCoursesAreIgnored() {
+    assertAdder_ResultsIn(
+            adderFrom(List.of(Grade.A, Grade.W, Grade.B)),
+            2, 7, 3.5);
   }
 
   private GradeAdder adderFrom(Iterable<Grade> grades) {

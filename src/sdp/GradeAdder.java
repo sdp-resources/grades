@@ -8,14 +8,19 @@ class GradeAdder {
     return courseCount == 0 ? 0 : totalGradePoints / courseCount;
   }
 
-  void add(Grade grade) {
-    totalGradePoints += grade.toPoints();
-    courseCount += 1;
-  }
-
   void addAll(Iterable<Grade> grades) {
     for (Grade grade : grades)
       add(grade);
+  }
+
+  void add(Grade grade) {
+    if (grade.countsForGPA())
+      adjustAmountsFor(grade);
+  }
+
+  private void adjustAmountsFor(Grade grade) {
+    totalGradePoints += grade.toPoints();
+    courseCount += 1;
   }
 
   double getTotalGradePoints() {
