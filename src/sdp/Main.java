@@ -9,8 +9,8 @@ public class Main {
   }
 
   protected static String processCourses(Scanner scanner) {
-    GradeProcessor gradeProcessor = new GradeProcessor();
-    gradeProcessor.addCourses(new GradeLineParser(scanner));
-    return gradeProcessor.reportTotals();
+    CourseProcessor courseProcessor = new CourseProcessor();
+    courseProcessor.addCourses(new CourseLineParser(scanner));
+    return courseProcessor.reportTotals();
   }
 }

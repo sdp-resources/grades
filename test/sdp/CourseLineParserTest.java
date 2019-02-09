@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 import static org.junit.Assert.assertEquals;
 
-public class GradeLineParserTest {
+public class CourseLineParserTest {
   @Test
   public void correctlyProcessesWellFormattedCourse() {
     assertInput_producesCourse("CS 121   A", new Course("CS", "121", Grade.A));
@@ -24,7 +24,7 @@ public class GradeLineParserTest {
   }
 
   private void assertInput_producesCourse(String input, Course course) {
-    GradeLineParser parser = new GradeLineParser(new Scanner(input));
+    CourseLineParser parser = new CourseLineParser(new Scanner(input));
     assertEquals(course, parser.readCourse());
   }
 }

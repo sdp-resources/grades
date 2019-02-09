@@ -3,15 +3,15 @@ package sdp;
 import java.util.ArrayList;
 import java.util.List;
 
-class GradeProcessor {
+class CourseProcessor {
   final GradeAdder gradeAdder;
   private List<Course> courses = new ArrayList<>();
 
-  public GradeProcessor() {
+  public CourseProcessor() {
     this(new GradeAdder());
   }
 
-  public GradeProcessor(GradeAdder adder) {
+  public CourseProcessor(GradeAdder adder) {
     gradeAdder = adder;
   }
 

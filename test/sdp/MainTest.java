@@ -51,9 +51,9 @@ public class MainTest {
   }
 
   private void assertTotalsOfList_Are(String input, String output) {
-    GradeProcessor gradeProcessor = new GradeProcessor();
-    gradeProcessor.addCourses(new GradeLineParser(new Scanner(input)));
-    assertEquals(output, gradeProcessor.reportTotals());
+    CourseProcessor courseProcessor = new CourseProcessor();
+    courseProcessor.addCourses(new CourseLineParser(new Scanner(input)));
+    assertEquals(output, courseProcessor.reportTotals());
   }
 
 }

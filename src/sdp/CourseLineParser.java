@@ -3,10 +3,10 @@ package sdp;
 import java.util.Iterator;
 import java.util.Scanner;
 
-public class GradeLineParser implements Iterable<Course> {
+public class CourseLineParser implements Iterable<Course> {
   private Scanner scanner;
 
-  public GradeLineParser(Scanner scanner) {
+  public CourseLineParser(Scanner scanner) {
     this.scanner = scanner;
   }
 

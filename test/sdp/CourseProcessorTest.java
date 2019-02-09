@@ -8,7 +8,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class GradeProcessorTest {
+public class CourseProcessorTest {
   @Test
   public void coursesCanBeAdded() {
     assertCoursesAddedInSomeOrder(
@@ -31,18 +31,18 @@ public class GradeProcessorTest {
 
   private void assertAddedCoursesProduceGrades(List<Course> courses, List<Grade> grades) {
     GradeAdderSpy adder = new GradeAdderSpy();
-    GradeProcessor processor = new GradeProcessor(adder);
+    CourseProcessor processor = new CourseProcessor(adder);
     processor.addCourses(courses);
     assertEquals(grades, adder.recordedGrades);
   }
 
   private void assertCoursesAddedInSomeOrder(List<Course> expectedCourses) {
-    GradeProcessor processor = processorWithCourses(expectedCourses);
+    CourseProcessor processor = processorWithCourses(expectedCourses);
     assertEqualAsSets(expectedCourses, processor.getCourses());
   }
 
-  private GradeProcessor processorWithCourses(List<Course> expectedCourses) {
-    GradeProcessor processor = new GradeProcessor();
+  private CourseProcessor processorWithCourses(List<Course> expectedCourses) {
+    CourseProcessor processor = new CourseProcessor();
     processor.addCourses(expectedCourses);
     return processor;
   }
