@@ -3,8 +3,8 @@ package sdp;
 import java.util.Iterator;
 import java.util.Scanner;
 
-public class GradeLineParser implements Iterable<Grade> {
-  Scanner scanner;
+public class GradeLineParser implements Iterable<Course> {
+  private Scanner scanner;
 
   public GradeLineParser(Scanner scanner) {
     this.scanner = scanner;
@@ -22,12 +22,6 @@ public class GradeLineParser implements Iterable<Grade> {
     return new Course(deptPrefix, courseCode, grade);
   }
 
-  String readCourseCode() {
-    String s = readDeptPrefix();
-    s += readCourseNumber();
-    return s;
-  }
-
   public String readDeptPrefix() {
     return scanner.next();
   }
@@ -41,18 +35,15 @@ public class GradeLineParser implements Iterable<Grade> {
     return Grade.fromLetter(letterGrade);
   }
 
-  public Iterator<Grade> iterator() {
+  public Iterator<Course> iterator() {
     return new Iterator<>() {
 
       public boolean hasNext() {
         return thereAreMoreCourses();
       }
 
-      public Grade next() {
-        readCourseCode();
-        Grade grade = readLetterGrade();
-
-        return grade;
+      public Course next() {
+        return readCourse();
       }
     };
   }
