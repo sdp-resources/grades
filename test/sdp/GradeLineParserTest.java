@@ -8,6 +8,13 @@ import static org.junit.Assert.assertEquals;
 
 public class GradeLineParserTest {
   @Test
+  public void correctlyProcessesWellFormattedCourse() {
+    assertInput_producesCourse("CS 121   A", new Course("CS", "121", Grade.A));
+    assertInput_producesCourse("CS 121   A \n ", new Course("CS", "121", Grade.A));
+    assertInput_producesCourse("CS 121L1   B- \n ", new Course("CS", "121L1", Grade.BMINUS));
+  }
+
+  @Test
   public void coursePrefixesCanBeParsed() {
     Scanner scanner = new Scanner("  CS   ");
     GradeLineParser parser = new GradeLineParser(scanner);
@@ -31,5 +38,10 @@ public class GradeLineParserTest {
     assertEquals(true, scanner.hasNextLine());
     assertEquals("  ", scanner.nextLine());
     assertEquals(" ", scanner.nextLine());
+  }
+
+  private void assertInput_producesCourse(String input, Course course) {
+    GradeLineParser parser = new GradeLineParser(new Scanner(input));
+    assertEquals(course, parser.readCourse());
   }
 }

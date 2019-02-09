@@ -14,17 +14,25 @@ public class GradeLineParser implements Iterable<Grade> {
     return scanner.hasNext();
   }
 
+  public Course readCourse() {
+    String deptPrefix = readDeptPrefix();
+    String courseCode = readCourseNumber();
+    Grade grade = readLetterGrade();
+
+    return new Course(deptPrefix, courseCode, grade);
+  }
+
   String readCourseCode() {
     String s = readDeptPrefix();
     s += readCourseNumber();
     return s;
   }
 
-  public String readCourseNumber() {
+  public String readDeptPrefix() {
     return scanner.next();
   }
 
-  public String readDeptPrefix() {
+  public String readCourseNumber() {
     return scanner.next();
   }
 
@@ -48,5 +56,4 @@ public class GradeLineParser implements Iterable<Grade> {
       }
     };
   }
-
 }
