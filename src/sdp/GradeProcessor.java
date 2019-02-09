@@ -6,8 +6,6 @@ class GradeProcessor {
   public void addGrades(Iterable<Grade> grades) {
     for (Grade grade : grades)
       adjustCourseCountAndPointsIfNeeded(grade);
-
-    gradeAdder.computeGradePointAverage();
   }
 
   private void adjustCourseCountAndPointsIfNeeded(Grade grade) {
