@@ -15,7 +15,7 @@ class GradeProcessor {
       gradeAdder.add(grade);
   }
 
-  String prepareReport() {
+  String reportTotals() {
     return gradeAdder.prepareReport();
   }
 

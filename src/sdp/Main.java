@@ -11,6 +11,6 @@ public class Main {
   protected static String processGrades(Scanner scanner) {
     GradeProcessor gradeProcessor = new GradeProcessor();
     gradeProcessor.addGrades(new GradeLineParser(scanner));
-    return gradeProcessor.prepareReport();
+    return gradeProcessor.reportTotals();
   }
 }

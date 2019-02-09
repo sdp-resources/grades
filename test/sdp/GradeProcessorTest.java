@@ -53,7 +53,7 @@ public class GradeProcessorTest {
   private void assertTotalsOfList_Are(String input, String output) {
     GradeProcessor gradeProcessor = new GradeProcessor();
     gradeProcessor.addGrades(new GradeLineParser(new Scanner(input)));
-    assertEquals(output, gradeProcessor.prepareReport());
+    assertEquals(output, gradeProcessor.reportTotals());
   }
 
 }
