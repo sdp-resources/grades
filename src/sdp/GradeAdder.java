@@ -4,7 +4,7 @@ class GradeAdder {
   private double totalGradePoints = 0;
   private int courseCount = 0;
 
-  public double computeGradePointAverage() {
+  double computeGradePointAverage() {
     return courseCount == 0 ? 0 : totalGradePoints / courseCount;
   }
 
@@ -18,11 +18,11 @@ class GradeAdder {
       add(grade);
   }
 
-  public double getTotalGradePoints() {
+  double getTotalGradePoints() {
     return totalGradePoints;
   }
 
-  public int getCourseCount() {
+  int getCourseCount() {
     return courseCount;
   }
 
