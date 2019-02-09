@@ -1,28 +1,17 @@
 package sdp;
 
+import java.util.Comparator;
 import java.util.Objects;
 
 public class Course {
-  private final String deptPrefix;
-  private final String courseCode;
-  private final Grade grade;
+  public final String deptPrefix;
+  public final String courseCode;
+  public final Grade grade;
 
   public Course(String deptPrefix, String courseCode, Grade grade) {
     this.deptPrefix = deptPrefix;
     this.courseCode = courseCode;
     this.grade = grade;
-  }
-
-  public String getDeptPrefix() {
-    return deptPrefix;
-  }
-
-  public String getCourseCode() {
-    return courseCode;
-  }
-
-  public Grade getGrade() {
-    return grade;
   }
 
   @Override
@@ -44,5 +33,14 @@ public class Course {
   @Override
   public String toString() {
     return String.format("Course<%s %s: %s>", deptPrefix, courseCode, grade);
+  }
+
+  public static Comparator<? super Course> alphabeticalComparator() {
+    return (Comparator<Course>) (c1, c2) -> {
+      if (c1.deptPrefix.equals(c2.deptPrefix))
+        return c1.courseCode.compareTo(c2.courseCode);
+
+      return c1.deptPrefix.compareTo(c2.deptPrefix);
+    };
   }
 }
