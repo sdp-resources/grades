@@ -7,6 +7,10 @@ class CourseProcessor {
 
   private List<Course> courses = new ArrayList<>();
 
+  public CourseProcessor(Iterable<Course> courses) {
+    addCourses(courses);
+  }
+
   public void addCourses(Iterable<Course> courses) {
     for (Course course : courses) {
       addCourse(course);

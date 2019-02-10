@@ -37,12 +37,9 @@ public class CourseReporterTest {
             "CS  121L1 B+\n" +
                     "HF  101   A-\n" +
                     "MAT 121C  B\n");
-
   }
 
   private void assertAddedCoursesReportedAlphabetically(List<Course> courses, String output) {
-    CourseProcessor processor = new CourseProcessor();
-    processor.addCourses(courses);
-    Assert.assertEquals(output, processor.reportCourseList());
+    Assert.assertEquals(output, new CourseProcessor(courses).reportCourseList());
   }
 }

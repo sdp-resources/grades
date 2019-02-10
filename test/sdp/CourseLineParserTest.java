@@ -9,9 +9,12 @@ import static org.junit.Assert.assertEquals;
 public class CourseLineParserTest {
   @Test
   public void correctlyProcessesWellFormattedCourse() {
-    assertInput_producesCourse("CS 121   A", new Course("CS", "121", Grade.A));
-    assertInput_producesCourse("CS 121   A \n ", new Course("CS", "121", Grade.A));
-    assertInput_producesCourse("CS 121L1   B- \n ", new Course("CS", "121L1", Grade.BMINUS));
+    assertInput_producesCourse("CS 121   A",
+                               new Course("CS", "121", Grade.A));
+    assertInput_producesCourse("CS 121   A \n ",
+                               new Course("CS", "121", Grade.A));
+    assertInput_producesCourse("CS 121L1   B- \n ",
+                               new Course("CS", "121L1", Grade.BMINUS));
   }
 
   @Test
@@ -24,7 +27,6 @@ public class CourseLineParserTest {
   }
 
   private void assertInput_producesCourse(String input, Course course) {
-    CourseLineParser parser = new CourseLineParser(new Scanner(input));
-    assertEquals(course, parser.readCourse());
+    assertEquals(course, new CourseLineParser(new Scanner(input)).readCourse());
   }
 }

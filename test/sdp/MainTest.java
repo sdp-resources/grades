@@ -72,20 +72,15 @@ public class MainTest {
   }
 
   private void assertFullReportForInput_Is(String input, String output) {
-    CourseProcessor processor = processorWithProcessedInput(input);
-    String report = processor.reportAll();
-    assertEquals(output, report);
+    assertEquals(output, processorWithProcessedInput(input).reportAll());
   }
 
   private void assertTotalsOfList_Are(String input, String output) {
-    CourseProcessor courseProcessor = processorWithProcessedInput(input);
-    assertEquals(output, courseProcessor.reportTotals());
+    assertEquals(output, processorWithProcessedInput(input).reportTotals());
   }
 
   private CourseProcessor processorWithProcessedInput(String input) {
-    CourseProcessor courseProcessor = new CourseProcessor();
-    courseProcessor.addCourses(new CourseLineParser(new Scanner(input)));
-    return courseProcessor;
+    return new CourseProcessor(new CourseLineParser(new Scanner(input)));
   }
 
 }

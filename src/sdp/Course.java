@@ -8,9 +8,9 @@ public class Course {
   public final String courseCode;
   public final Grade grade;
 
-  public Course(String deptPrefix, String courseCode, Grade grade) {
-    this.deptPrefix = deptPrefix;
-    this.courseCode = courseCode;
+  public Course(String prefix, String code, Grade grade) {
+    this.deptPrefix = prefix;
+    this.courseCode = code;
     this.grade = grade;
   }
 

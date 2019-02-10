@@ -18,14 +18,7 @@ public class CourseProcessorTest {
   }
 
   private void assertCoursesAddedInSomeOrder(List<Course> expectedCourses) {
-    CourseProcessor processor = processorWithCourses(expectedCourses);
-    assertEqualAsSets(expectedCourses, processor.getCourses());
-  }
-
-  private CourseProcessor processorWithCourses(List<Course> expectedCourses) {
-    CourseProcessor processor = new CourseProcessor();
-    processor.addCourses(expectedCourses);
-    return processor;
+    assertEqualAsSets(expectedCourses, new CourseProcessor(expectedCourses).getCourses());
   }
 
   private void assertEqualAsSets(List<Course> expected, List<Course> actual) {
