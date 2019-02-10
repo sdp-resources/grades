@@ -1,11 +1,53 @@
 package sdp;
 
-import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
+import static org.junit.Assert.assertEquals;
 
 public class CourseReporterTest {
+  @Test
+  public void singleCourseGradeTotalsItself() {
+    assertTotalsOfList_Are("CS 234        A ", "Courses: 1\nGPA: 4.00\n");
+    assertTotalsOfList_Are("MAT    234    A-", "Courses: 1\nGPA: 3.67\n");
+    assertTotalsOfList_Are("ENGR 121      B+", "Courses: 1\nGPA: 3.33\n");
+    assertTotalsOfList_Are("CS 234         B", "Courses: 1\nGPA: 3.00\n");
+    assertTotalsOfList_Are("CS 234        B-", "Courses: 1\nGPA: 2.67\n");
+    assertTotalsOfList_Are("ENGR 011     C+ ", "Courses: 1\nGPA: 2.33\n");
+    assertTotalsOfList_Are("ENGR 101      C ", "Courses: 1\nGPA: 2.00\n");
+    assertTotalsOfList_Are("ENGR 101    C-\n", "Courses: 1\nGPA: 1.67\n");
+    assertTotalsOfList_Are("ENGR 101      D+", "Courses: 1\nGPA: 1.33\n");
+    assertTotalsOfList_Are("CS 122L        D", "Courses: 1\nGPA: 1.00\n");
+    assertTotalsOfList_Are("CS 122L        F", "Courses: 1\nGPA: 0.00\n");
+  }
+
+  @Test
+  public void withdrawnCoursesDontCountTowardsTotalCoursesTaken() {
+    assertTotalsOfList_Are("CS 122L      W", "Courses: 0\nGPA: 0.00\n");
+    assertTotalsOfList_Are(
+        "CS 234        A \nMAT 111      B\nCS 122     W\n",
+        "Courses: 2\nGPA: 3.50\n");
+  }
+
+  @Test
+  public void multipleCoursesAreAllComputedForTotal() {
+    assertTotalsOfList_Are(
+        "CS 234        A \nMAT 111      B",
+        "Courses: 2\nGPA: 3.50\n");
+    assertTotalsOfList_Are(
+        "CS 234        A \nMAT 111      B\nCS 122     B-\n",
+        "Courses: 3\nGPA: 3.22\n");
+
+  }
+
+  @Test
+  public void emptyGradeListTotalsZeroGpaAndNoCourses() {
+    assertTotalsOfList_Are("", "Courses: 0\nGPA: 0.00\n");
+  }
+
   @Test
   public void reportCourseListContainsIncludedCoursesInAlphabeticalOrder() {
     assertAddedCoursesReportedAlphabetically(List.of(), "");
@@ -40,6 +82,15 @@ public class CourseReporterTest {
   }
 
   private void assertAddedCoursesReportedAlphabetically(List<Course> courses, String output) {
-    Assert.assertEquals(output, new CourseProcessor(courses).reportCourseList());
+    assertEquals(output, new CourseReporter().reportCourseList(courses));
+  }
+
+  static void assertTotalsOfList_Are(String input, String output) {
+    List<Course> courses = new ArrayList<>();
+    for (Course course : new CourseLineParser(new Scanner(input))) {
+      courses.add(course);
+    }
+    GradeSummary summary = new GradeAdder(courses).getSummary();
+    assertEquals(output, new CourseReporter().reportSummary(summary));
   }
 }
