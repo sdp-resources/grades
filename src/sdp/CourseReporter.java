@@ -20,9 +20,9 @@ public class CourseReporter {
   }
 
   private void determineFormatForList(List<Course> courses) {
-    formatString =
+    formatString = "" +
         "%-" + getMaxPrefixLength(courses) + "s " +
-            "%-" + getMaxCodeLength(courses) + "s %s\n";
+        "%-" + getMaxCodeLength(courses) + "s %s\n";
   }
 
   private ArrayList<Course> getAlphabeticallySortedCourses(List<Course> courses) {
@@ -37,14 +37,14 @@ public class CourseReporter {
 
   private int getMaxPrefixLength(List<Course> courses) {
     return courses.stream()
-            .map( c -> c.deptPrefix.length())
-            .reduce(0, Integer::max);
+        .map(c -> c.deptPrefix.length())
+        .reduce(0, Integer::max);
   }
 
   private int getMaxCodeLength(List<Course> courses) {
     return courses.stream()
-            .map( c -> c.courseCode.length())
-            .reduce(0, Integer::max);
+        .map(c -> c.courseCode.length())
+        .reduce(0, Integer::max);
   }
 
 }
