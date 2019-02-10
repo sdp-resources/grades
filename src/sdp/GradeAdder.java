@@ -1,11 +1,24 @@
 package sdp;
 
+import java.util.List;
+
 class GradeAdder {
   private double totalGradePoints = 0;
   private int courseCount = 0;
 
-  double computeGradePointAverage() {
-    return courseCount == 0 ? 0 : totalGradePoints / courseCount;
+  public GradeAdder() { }
+
+  public GradeAdder(List<Course> courses) {
+    addCourses(courses);
+  }
+
+  public GradeAdder(Iterable<Grade> grades) {
+    addAll(grades);
+  }
+
+  private void addCourses(List<Course> courses) {
+    for (Course course : courses)
+      add(course.grade);
   }
 
   void addAll(Iterable<Grade> grades) {
@@ -23,15 +36,11 @@ class GradeAdder {
     courseCount += 1;
   }
 
-  double getTotalGradePoints() {
-    return totalGradePoints;
+  private double computeGradePointAverage() {
+    return courseCount == 0 ? 0 : totalGradePoints / courseCount;
   }
 
-  int getCourseCount() {
-    return courseCount;
-  }
-
-  String prepareReport() {
-    return String.format("Courses: %d\nGPA: %.2f\n", courseCount, computeGradePointAverage());
+  GradeSummary getSummary() {
+    return new GradeSummary(courseCount, totalGradePoints, computeGradePointAverage());
   }
 }

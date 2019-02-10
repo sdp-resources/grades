@@ -22,11 +22,11 @@ class CourseProcessor {
   }
 
   public String reportTotals() {
-    GradeAdder gradeAdder = new GradeAdder();
-    for (Course course : courses) {
-      gradeAdder.add(course.grade);
-    }
-    return gradeAdder.prepareReport();
+    return new CourseListPrinter().reportSummary(getSummary());
+  }
+
+  private GradeSummary getSummary() {
+    return new GradeAdder(courses).getSummary();
   }
 
   public List<Course> getCourses() {

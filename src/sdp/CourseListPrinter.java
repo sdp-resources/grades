@@ -6,6 +6,10 @@ import java.util.List;
 public class CourseListPrinter {
   private String formatString = "%s %s %s\n";
 
+  public String reportSummary(GradeSummary summary) {
+    return String.format("Courses: %d\nGPA: %.2f\n", summary.courseCount, summary.gpa);
+  }
+
   private void determineFormatList(List<Course> courses) {
     formatString =
             "%-" + getMaxPrefixLength(courses) + "s " +
@@ -20,6 +24,7 @@ public class CourseListPrinter {
     }
     return sb.toString();
   }
+
   private ArrayList<Course> getAlphabeticallySortedCourses(List<Course> courses) {
     ArrayList<Course> sortedCourses = new ArrayList<>(courses);
     sortedCourses.sort(Course.alphabeticalComparator());
