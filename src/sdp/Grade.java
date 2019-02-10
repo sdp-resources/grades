@@ -13,7 +13,9 @@ public enum Grade {
   D      ("D", 1.00),
   F      ("F", 0.00),
   W      ("W", 0.00),
-  IP     ("IP", 0.00);
+  IP     ("IP", 0.00),
+  S      ("S", 0.00),
+  U      ("U", 0.00);
 
   private final String letter;
 

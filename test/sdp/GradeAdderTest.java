@@ -18,7 +18,7 @@ public class GradeAdderTest {
   @Test
   public void oneNormalCourseAddedResultsInThatGradeAsGPA_AndOneCourseCount() {
     for (Grade grade : Grade.values()) {
-      if (grade != Grade.W && grade != Grade.IP && grade != Grade.F)
+      if (!GradeAdder.NO_GPA_GRADES.contains(grade))
         assertAdder_ResultsIn(
             new GradeAdder(List.of(grade)),
             new GradeSummary(1, grade.toPoints(), grade.toPoints(), 0));
@@ -51,7 +51,16 @@ public class GradeAdderTest {
     assertAdder_ResultsIn(
         new GradeAdder(List.of(Grade.W, Grade.F)),
         new GradeSummary(0, 0, 0, 0));
+  }
 
+  @Test
+  public void forGraduationCoursesCountAsCoursesButNotForGpa() {
+    assertAdder_ResultsIn(
+        new GradeAdder(List.of(Grade.A, Grade.S)),
+        new GradeSummary(2, 4, 4, 0));
+    assertAdder_ResultsIn(
+        new GradeAdder(List.of(Grade.A, Grade.U)),
+        new GradeSummary(1, 4, 4, 0));
   }
 
   @Test
