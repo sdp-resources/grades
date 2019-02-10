@@ -12,7 +12,7 @@ public class GradeAdderTest {
   public void noCoursesResultInZeroGPA_AndZeroCount() {
     assertAdder_ResultsIn(
             new GradeAdder(),
-            new GradeSummary(0, 0.00, 0.00));
+            new GradeSummary(0, 0.00, 0.00, 0));
   }
 
   @Test
@@ -21,11 +21,7 @@ public class GradeAdderTest {
       if (grade.countsForGPA())
         assertAdder_ResultsIn(
             new GradeAdder(List.of(grade)),
-            new GradeSummary(1, grade.toPoints(), grade.toPoints()));
-      else
-        assertAdder_ResultsIn(
-            new GradeAdder(List.of(grade)),
-            new GradeSummary(0, 0, 0));
+            new GradeSummary(1, grade.toPoints(), grade.toPoints(), 0));
     }
   }
 
@@ -33,21 +29,36 @@ public class GradeAdderTest {
   public void twoCoursesAddedResultsInCombinedTotal_AndTwoCourseCount() {
     assertAdder_ResultsIn(
         new GradeAdder(List.of(Grade.A, Grade.B)),
-        new GradeSummary(2, 7, 3.5));
+        new GradeSummary(2, 7, 3.5, 0));
   }
 
   @Test
   public void moreCoursesAddedResultsInCombinedTotal_AndAppropriateCourseCount() {
     assertAdder_ResultsIn(
         new GradeAdder(List.of(Grade.A, Grade.B, Grade.AMINUS, Grade.C)),
-        new GradeSummary(4, (4 + 3 + 3.67 + 2), (4 + 3 + 3.67 + 2) / 4));
+        new GradeSummary(4, (4 + 3 + 3.67 + 2), (4 + 3 + 3.67 + 2) / 4, 0));
   }
 
   @Test
   public void withdrawnCoursesAreIgnored() {
     assertAdder_ResultsIn(
         new GradeAdder(List.of(Grade.A, Grade.W, Grade.B)),
-        new GradeSummary(2, 7, 3.5));
+        new GradeSummary(2, 7, 3.5, 0));
+  }
+
+  @Test
+  public void nonCreditGradesDontGiveCredit() {
+    assertAdder_ResultsIn(
+        new GradeAdder(List.of(Grade.W, Grade.F)),
+        new GradeSummary(0, 0, 0, 0));
+
+  }
+
+  @Test
+  public void inProgressCoursesReportedOnSeparateCount() {
+    assertAdder_ResultsIn(
+        new GradeAdder(List.of(Grade.A, Grade.IP)),
+        new GradeSummary(1, 4, 4, 1));
   }
 
   private void assertAdder_ResultsIn(GradeAdder adder, GradeSummary gradeSummary) {

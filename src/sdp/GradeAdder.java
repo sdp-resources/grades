@@ -5,6 +5,7 @@ import java.util.List;
 class GradeAdder {
   private double totalGradePoints = 0;
   private int courseCount = 0;
+  private int inProgress = 0;
 
   public GradeAdder() { }
 
@@ -29,6 +30,8 @@ class GradeAdder {
   void add(Grade grade) {
     if (grade.countsForGPA())
       adjustAmountsFor(grade);
+    if (grade.isInProgress())
+      inProgress += 1;
   }
 
   private void adjustAmountsFor(Grade grade) {
@@ -41,6 +44,6 @@ class GradeAdder {
   }
 
   GradeSummary getSummary() {
-    return new GradeSummary(courseCount, totalGradePoints, computeGradePointAverage());
+    return new GradeSummary(courseCount, totalGradePoints, computeGradePointAverage(), inProgress);
   }
 }

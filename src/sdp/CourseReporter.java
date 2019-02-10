@@ -7,7 +7,13 @@ public class CourseReporter {
   private String formatString = "%s %s %s\n";
 
   public String reportSummary(GradeSummary summary) {
-    return String.format("Courses: %d\nGPA: %.2f\n", summary.courseCount, summary.gpa);
+    if (summary.inProgress > 0) {
+      return String.format("Courses: %d\nGPA: %.2f\nIn Progress: %s\n",
+                           summary.courseCount, summary.gpa, summary.inProgress);
+
+    } else {
+      return String.format("Courses: %d\nGPA: %.2f\n", summary.courseCount, summary.gpa);
+    }
   }
 
   public String reportCourseList(List<Course> courses) {

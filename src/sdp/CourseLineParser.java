@@ -31,7 +31,7 @@ public class CourseLineParser implements Iterable<Course> {
   }
 
   Grade readLetterGrade() {
-    String letterGrade = scanner.next("[ABCDFW][+-]?");
+    String letterGrade = scanner.next("[ABCD][+-]?|[WF]|(IP)");
     return Grade.fromLetter(letterGrade);
   }
 

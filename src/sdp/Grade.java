@@ -12,7 +12,8 @@ public enum Grade {
   DPLUS  ("D+", 1.33),
   D      ("D", 1.00),
   F      ("F", 0.00),
-  W      ("W", 0.00);
+  W      ("W", 0.00),
+  IP     ("IP", 0.00);
 
   private final String letter;
 
@@ -36,13 +37,18 @@ public enum Grade {
     case "D": return D;
     case "F": return F;
     case "W": return W;
+    case "IP": return IP;
     default:
-      throw new UnknownLetterGradeException();
+      throw new UnknownLetterGradeException(letterGrade);
     }
   }
 
   boolean countsForGPA() {
-    return this != W;
+    return this != W && this != IP && this != F;
+  }
+
+  boolean isInProgress() {
+    return this == IP;
   }
 
   public String toString() {
@@ -54,5 +60,15 @@ public enum Grade {
   }
 
   private static class UnknownLetterGradeException extends RuntimeException {
+    private String message;
+
+    public UnknownLetterGradeException(String letter) {
+      this.message = letter;
+    }
+
+    @Override
+    public String getMessage() {
+      return message;
+    }
   }
 }
