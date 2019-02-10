@@ -4,31 +4,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CourseReporter {
-  private String formatString = "%s %s %s\n";
 
   public String reportSummary(GradeSummary summary) {
-    if (summary.inProgress > 0) {
-      return String.format("Courses: %d\nGPA: %.2f\nIn Progress: %s\n",
-                           summary.courseCount, summary.gpa, summary.inProgress);
+    if (hasNonzeroInProgress(summary))
+      return reportWithInProgress(summary);
+    else
+      return reportWithoutInProgress(summary);
+  }
 
-    } else {
-      return String.format("Courses: %d\nGPA: %.2f\n", summary.courseCount, summary.gpa);
-    }
+  private boolean hasNonzeroInProgress(GradeSummary summary) {
+    return summary.inProgress > 0;
+  }
+
+  private String reportWithInProgress(GradeSummary summary) {
+    return String.format("Courses: %d\nGPA: %.2f\nIn Progress: %s\n",
+                         summary.courseCount, summary.gpa, summary.inProgress);
+  }
+
+  private String reportWithoutInProgress(GradeSummary summary) {
+    return String.format("Courses: %d\nGPA: %.2f\n", summary.courseCount, summary.gpa);
   }
 
   public String reportCourseList(List<Course> courses) {
-    determineFormatForList(courses);
+    String formatString = determineFormatForList(courses);
     StringBuilder sb = new StringBuilder();
     for (Course course : getAlphabeticallySortedCourses(courses)) {
-      sb.append(formattedCourse(course));
+      sb.append(formattedCourse(course, formatString));
     }
     return sb.toString();
-  }
-
-  private void determineFormatForList(List<Course> courses) {
-    formatString = "" +
-        "%-" + getMaxPrefixLength(courses) + "s " +
-        "%-" + getMaxCodeLength(courses) + "s %s\n";
   }
 
   private ArrayList<Course> getAlphabeticallySortedCourses(List<Course> courses) {
@@ -37,7 +40,13 @@ public class CourseReporter {
     return sortedCourses;
   }
 
-  private String formattedCourse(Course course) {
+  private String determineFormatForList(List<Course> courses) {
+    return "" +
+        "%-" + getMaxPrefixLength(courses) + "s " +
+        "%-" + getMaxCodeLength(courses) + "s %s\n";
+  }
+
+  private String formattedCourse(Course course, String formatString) {
     return String.format(formatString, course.deptPrefix, course.courseCode, course.grade);
   }
 
