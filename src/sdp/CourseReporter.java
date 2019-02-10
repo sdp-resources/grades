@@ -3,26 +3,26 @@ package sdp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CourseListPrinter {
+public class CourseReporter {
   private String formatString = "%s %s %s\n";
 
   public String reportSummary(GradeSummary summary) {
     return String.format("Courses: %d\nGPA: %.2f\n", summary.courseCount, summary.gpa);
   }
 
-  private void determineFormatList(List<Course> courses) {
-    formatString =
-            "%-" + getMaxPrefixLength(courses) + "s " +
-            "%-" + getMaxCodeLength(courses) + "s %s\n";
-  }
-
   public String reportCourseList(List<Course> courses) {
-    determineFormatList(courses);
+    determineFormatForList(courses);
     StringBuilder sb = new StringBuilder();
     for (Course course : getAlphabeticallySortedCourses(courses)) {
       sb.append(formattedCourse(course));
     }
     return sb.toString();
+  }
+
+  private void determineFormatForList(List<Course> courses) {
+    formatString =
+        "%-" + getMaxPrefixLength(courses) + "s " +
+            "%-" + getMaxCodeLength(courses) + "s %s\n";
   }
 
   private ArrayList<Course> getAlphabeticallySortedCourses(List<Course> courses) {
@@ -38,13 +38,13 @@ public class CourseListPrinter {
   private int getMaxPrefixLength(List<Course> courses) {
     return courses.stream()
             .map( c -> c.deptPrefix.length())
-            .reduce(0, (x,y) -> Integer.max(x,y));
+            .reduce(0, Integer::max);
   }
 
   private int getMaxCodeLength(List<Course> courses) {
     return courses.stream()
             .map( c -> c.courseCode.length())
-            .reduce(0, (x,y) -> Integer.max(x,y));
+            .reduce(0, Integer::max);
   }
 
 }

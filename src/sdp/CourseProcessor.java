@@ -18,11 +18,11 @@ class CourseProcessor {
   }
 
   public String reportCourseList() {
-    return new CourseListPrinter().reportCourseList(courses);
+    return new CourseReporter().reportCourseList(courses);
   }
 
   public String reportTotals() {
-    return new CourseListPrinter().reportSummary(getSummary());
+    return new CourseReporter().reportSummary(getSummary());
   }
 
   private GradeSummary getSummary() {

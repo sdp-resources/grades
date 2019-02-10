@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-public class CourseListPrinterTest {
+public class CourseReporterTest {
   @Test
   public void reportCourseListContainsIncludedCoursesInAlphabeticalOrder() {
     assertAddedCoursesReportedAlphabetically(List.of(), "");
