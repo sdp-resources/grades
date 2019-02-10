@@ -28,15 +28,20 @@ class GradeAdder {
   }
 
   void add(Grade grade) {
-    if (grade.countsForGPA())
-      adjustAmountsFor(grade);
-    if (grade.isInProgress())
+    if (countsForGpa(grade)) {
+      totalGradePoints += grade.toPoints();
+      courseCount += 1;
+    }
+    if (isInProgress(grade))
       inProgress += 1;
   }
 
-  private void adjustAmountsFor(Grade grade) {
-    totalGradePoints += grade.toPoints();
-    courseCount += 1;
+  private boolean countsForGpa(Grade grade) {
+    return grade != Grade.W && grade != Grade.IP && grade != Grade.F;
+  }
+
+  private boolean isInProgress(Grade grade) {
+    return grade == Grade.IP;
   }
 
   private double computeGradePointAverage() {

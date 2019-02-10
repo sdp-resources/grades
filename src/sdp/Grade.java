@@ -43,14 +43,6 @@ public enum Grade {
     }
   }
 
-  boolean countsForGPA() {
-    return this != W && this != IP && this != F;
-  }
-
-  boolean isInProgress() {
-    return this == IP;
-  }
-
   public String toString() {
     return letter;
   }

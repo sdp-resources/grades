@@ -18,7 +18,7 @@ public class GradeAdderTest {
   @Test
   public void oneNormalCourseAddedResultsInThatGradeAsGPA_AndOneCourseCount() {
     for (Grade grade : Grade.values()) {
-      if (grade.countsForGPA())
+      if (grade != Grade.W && grade != Grade.IP && grade != Grade.F)
         assertAdder_ResultsIn(
             new GradeAdder(List.of(grade)),
             new GradeSummary(1, grade.toPoints(), grade.toPoints(), 0));
