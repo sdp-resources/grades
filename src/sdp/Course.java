@@ -7,15 +7,25 @@ public class Course implements GradedUnit {
   public final String deptPrefix;
   public final String courseCode;
   private final Grade grade;
+  private double units;
+
+  public Course(String prefix, String code, Grade grade, double units) {
+    this.deptPrefix = prefix;
+    this.courseCode = code;
+    this.grade = grade;
+    this.units = units;
+  }
 
   public Grade getGrade() {
     return grade;
   }
 
+  public double getUnits() {
+    return units;
+  }
+
   public Course(String prefix, String code, Grade grade) {
-    this.deptPrefix = prefix;
-    this.courseCode = code;
-    this.grade = grade;
+    this(prefix, code, grade, 1);
   }
 
   @Override

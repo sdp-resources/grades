@@ -22,7 +22,7 @@ public class MainTest {
             "ENGR 121L B+\n" +
             "MAT  234  A-\n" +
             "---\n" +
-            "Courses: 4\n" +
+            "Units: 4.00\n" +
             "GPA: 3.50\n");
 
   }

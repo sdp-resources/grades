@@ -6,9 +6,9 @@ class GradeAdder {
   public static final List<Grade> NO_GPA_GRADES = List.of(Grade.W, Grade.IP, Grade.F, Grade.S, Grade.U);
   public static final List<Grade> NO_CREDIT_GRADES = List.of(Grade.W, Grade.IP, Grade.F, Grade.U);
   private double totalGradePoints = 0;
-  private int countOfGpaAffectingCourses = 0;
-  private int inProgress = 0;
-  private int countOfGraduationCourses;
+  private double gpaAffectingUnits = 0;
+  private double inProgressUnits = 0;
+  private double creditBearingUnits;
 
   public GradeAdder() { }
 
@@ -39,18 +39,18 @@ class GradeAdder {
   private void countForGpaIfEligible(Grade grade) {
     if (countsForGpa(grade)) {
       totalGradePoints += grade.toPoints();
-      countOfGpaAffectingCourses += 1;
+      gpaAffectingUnits += 1;
     }
   }
 
   private void countForGraduationIfEligible(Grade grade) {
     if (countsForGraduation(grade))
-      countOfGraduationCourses += 1;
+      creditBearingUnits += 1;
   }
 
   private void countForInProgressIfEligible(Grade grade) {
     if (isInProgress(grade))
-      inProgress += 1;
+      inProgressUnits += 1;
   }
 
   private boolean countsForGraduation(Grade grade) {
@@ -66,10 +66,10 @@ class GradeAdder {
   }
 
   private double computeGradePointAverage() {
-    return countOfGpaAffectingCourses == 0 ? 0 : totalGradePoints / countOfGpaAffectingCourses;
+    return gpaAffectingUnits == 0 ? 0 : totalGradePoints / gpaAffectingUnits;
   }
 
   GradeSummary getSummary() {
-    return new GradeSummary(countOfGraduationCourses, totalGradePoints, computeGradePointAverage(), inProgress);
+    return new GradeSummary(creditBearingUnits, totalGradePoints, computeGradePointAverage(), inProgressUnits);
   }
 }

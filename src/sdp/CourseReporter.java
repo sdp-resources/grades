@@ -17,12 +17,12 @@ public class CourseReporter {
   }
 
   private String reportWithInProgress(GradeSummary summary) {
-    return String.format("Courses: %d\nGPA: %.2f\nIn Progress: %s\n",
-                         summary.courseCount, summary.gpa, summary.inProgress);
+    return String.format("Units: %.2f\nGPA: %.2f\nIn Progress: %.2f\n",
+                         summary.units, summary.gpa, summary.inProgress);
   }
 
   private String reportWithoutInProgress(GradeSummary summary) {
-    return String.format("Courses: %d\nGPA: %.2f\n", summary.courseCount, summary.gpa);
+    return String.format("Units: %.2f\nGPA: %.2f\n", summary.units, summary.gpa);
   }
 
   public String reportCourseList(List<Course> courses) {

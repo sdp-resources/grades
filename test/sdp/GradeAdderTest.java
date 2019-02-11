@@ -64,6 +64,14 @@ public class GradeAdderTest {
   }
 
   @Test
+  public void coursesContributeWeightBasedOnTheirUnits() {
+    assertAdder_ResultsIn(
+        new GradeAdder(List.of(new Course("Full", "", Grade.A),
+                               new Course("Half", "", Grade.B, 0.5))),
+        new GradeSummary(2, 7, 3.5, 0));
+  }
+
+  @Test
   public void inProgressCoursesReportedOnSeparateCount() {
     assertAdder_ResultsIn(
         new GradeAdder(List.of(Grade.A, Grade.IP)),
