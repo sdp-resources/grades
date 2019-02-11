@@ -23,42 +23,42 @@ class GradeAdder {
 
   private void addGradedUnits(List<? extends GradedUnit> gradedUnits) {
     for (GradedUnit gradedUnit : gradedUnits)
-      add(gradedUnit.getGrade());
+      add(gradedUnit);
   }
 
-  void add(Grade grade) {
-    countForGpaIfEligible(grade);
-    countForGraduationIfEligible(grade);
-    countForInProgressIfEligible(grade);
+  void add(GradedUnit gradedUnit) {
+    countForGpaIfEligible(gradedUnit);
+    countForGraduationIfEligible(gradedUnit);
+    countForInProgressIfEligible(gradedUnit);
   }
 
-  private void countForGpaIfEligible(Grade grade) {
-    if (countsForGpa(grade)) {
-      totalGradePoints += grade.toPoints();
-      gpaAffectingUnits += 1;
+  private void countForGpaIfEligible(GradedUnit gradedUnit) {
+    if (countsForGpa(gradedUnit)) {
+      totalGradePoints += gradedUnit.toPoints() * gradedUnit.getUnits();
+      gpaAffectingUnits += gradedUnit.getUnits();
     }
   }
 
-  private void countForGraduationIfEligible(Grade grade) {
-    if (countsForGraduation(grade))
-      creditBearingUnits += 1;
+  private void countForGraduationIfEligible(GradedUnit gradedUnit) {
+    if (countsForGraduation(gradedUnit))
+      creditBearingUnits += gradedUnit.getUnits();
   }
 
-  private void countForInProgressIfEligible(Grade grade) {
-    if (isInProgress(grade))
-      inProgressUnits += 1;
+  private void countForInProgressIfEligible(GradedUnit gradedUnit) {
+    if (isInProgress(gradedUnit))
+      inProgressUnits += gradedUnit.getUnits();
   }
 
-  private boolean countsForGraduation(Grade grade) {
-    return !NO_CREDIT_GRADES.contains(grade);
+  private boolean countsForGraduation(GradedUnit gradedUnit) {
+    return !NO_CREDIT_GRADES.contains(gradedUnit.getGrade());
   }
 
-  private boolean countsForGpa(Grade grade) {
-    return !NO_GPA_GRADES.contains(grade);
+  private boolean countsForGpa(GradedUnit gradedUnit) {
+    return !NO_GPA_GRADES.contains(gradedUnit.getGrade());
   }
 
-  private boolean isInProgress(Grade grade) {
-    return grade == Grade.IP;
+  private boolean isInProgress(GradedUnit gradedUnit) {
+    return gradedUnit.getGrade() == Grade.IP;
   }
 
   private double computeGradePointAverage() {

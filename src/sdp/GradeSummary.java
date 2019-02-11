@@ -19,10 +19,14 @@ public class GradeSummary {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GradeSummary that = (GradeSummary) o;
-    return Double.compare(units, that.units) == 0 &&
-        Double.compare(totalPoints, that.totalPoints) == 0 &&
-        Double.compare(gpa, that.gpa) == 0 &&
-        Double.compare(inProgress, that.inProgress) == 0;
+    return closeEnough(units, that.units) &&
+        closeEnough(totalPoints, that.totalPoints) &&
+        closeEnough(gpa, that.gpa) &&
+        closeEnough(inProgress, that.inProgress);
+  }
+
+  private boolean closeEnough(double d1, double d2) {
+    return Math.abs(d1- d2) < 0.00001;
   }
 
   public int hashCode() {

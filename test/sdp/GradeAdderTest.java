@@ -68,7 +68,7 @@ public class GradeAdderTest {
     assertAdder_ResultsIn(
         new GradeAdder(List.of(new Course("Full", "", Grade.A),
                                new Course("Half", "", Grade.B, 0.5))),
-        new GradeSummary(1.5, 5.5, 3.67, 0));
+        new GradeSummary(1.5, 5.5, 5.5/1.5, 0));
   }
 
   @Test
