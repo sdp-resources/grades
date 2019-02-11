@@ -47,7 +47,7 @@ public class CourseReporter {
   }
 
   private String formattedCourse(Course course, String formatString) {
-    return String.format(formatString, course.deptPrefix, course.courseCode, course.grade);
+    return String.format(formatString, course.deptPrefix, course.courseCode, course.getGrade());
   }
 
   private int getMaxPrefixLength(List<Course> courses) {

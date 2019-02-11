@@ -12,7 +12,7 @@ class GradeAdder {
 
   public GradeAdder() { }
 
-  public GradeAdder(List<Course> courses) {
+  public GradeAdder(List<? extends GradedUnit> courses) {
     addCourses(courses);
   }
 
@@ -20,9 +20,9 @@ class GradeAdder {
     addAll(grades);
   }
 
-  private void addCourses(List<Course> courses) {
-    for (Course course : courses)
-      add(course.grade);
+  private void addCourses(List<? extends GradedUnit> courses) {
+    for (GradedUnit course : courses)
+      add(course.getGrade());
   }
 
   void addAll(Iterable<Grade> grades) {

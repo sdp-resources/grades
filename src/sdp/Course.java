@@ -3,10 +3,14 @@ package sdp;
 import java.util.Comparator;
 import java.util.Objects;
 
-public class Course {
+public class Course implements GradedUnit {
   public final String deptPrefix;
   public final String courseCode;
-  public final Grade grade;
+  private final Grade grade;
+
+  public Grade getGrade() {
+    return grade;
+  }
 
   public Course(String prefix, String code, Grade grade) {
     this.deptPrefix = prefix;
