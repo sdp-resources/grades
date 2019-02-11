@@ -1,5 +1,6 @@
 package sdp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 class GradeAdder {
@@ -13,21 +14,16 @@ class GradeAdder {
   public GradeAdder() { }
 
   public GradeAdder(List<? extends GradedUnit> courses) {
-    addCourses(courses);
+    addGradedUnits(courses);
   }
 
   public GradeAdder(Iterable<Grade> grades) {
-    addAll(grades);
+    addGradedUnits(gradedUnitsFromGrades(grades));
   }
 
-  private void addCourses(List<? extends GradedUnit> courses) {
-    for (GradedUnit course : courses)
-      add(course.getGrade());
-  }
-
-  void addAll(Iterable<Grade> grades) {
-    for (Grade grade : grades)
-      add(grade);
+  private void addGradedUnits(List<? extends GradedUnit> gradedUnits) {
+    for (GradedUnit gradedUnit : gradedUnits)
+      add(gradedUnit.getGrade());
   }
 
   void add(Grade grade) {
@@ -71,5 +67,30 @@ class GradeAdder {
 
   GradeSummary getSummary() {
     return new GradeSummary(creditBearingUnits, totalGradePoints, computeGradePointAverage(), inProgressUnits);
+  }
+
+  private ArrayList<GradedUnit> gradedUnitsFromGrades(Iterable<Grade> grades) {
+    ArrayList<GradedUnit> gradesWithUnits = new ArrayList<>();
+    for (Grade grade : grades) {
+      gradesWithUnits.add(new SimpleOneUnitGrade(grade));
+    }
+    return gradesWithUnits;
+  }
+
+  private class SimpleOneUnitGrade implements GradedUnit {
+
+    private Grade grade;
+
+    public SimpleOneUnitGrade(Grade grade) {
+      this.grade = grade;
+    }
+
+    public Grade getGrade() {
+      return grade;
+    }
+
+    public double getUnits() {
+      return 1;
+    }
   }
 }
