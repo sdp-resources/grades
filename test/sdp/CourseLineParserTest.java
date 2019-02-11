@@ -18,6 +18,14 @@ public class CourseLineParserTest {
   }
 
   @Test
+  public void correctlyProcessesCoursesWithUnits() {
+    assertInput_producesCourse("CS 121  0.5  A",
+                               new Course("CS", "121", Grade.A, 0.5));
+    assertInput_producesCourse("CS 121  1  A",
+                               new Course("CS", "121", Grade.A, 1));
+  }
+
+  @Test
   public void nextLineReturnsRemainingOfCurrentLineThenSkipsNewline() {
     Scanner scanner = new Scanner(" CS  \n ");
     assertEquals("CS", scanner.next());

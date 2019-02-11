@@ -17,9 +17,10 @@ public class CourseLineParser implements Iterable<Course> {
   public Course readCourse() {
     String deptPrefix = readDeptPrefix();
     String courseCode = readCourseNumber();
+    double units = readUnitsIfPresent();
     Grade grade = readLetterGrade();
 
-    return new Course(deptPrefix, courseCode, grade);
+    return new Course(deptPrefix, courseCode, grade, units);
   }
 
   public String readDeptPrefix() {
@@ -28,6 +29,10 @@ public class CourseLineParser implements Iterable<Course> {
 
   public String readCourseNumber() {
     return scanner.next();
+  }
+
+  private double readUnitsIfPresent() {
+    return scanner.hasNextDouble() ? scanner.nextDouble() : 1;
   }
 
   Grade readLetterGrade() {
